@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Bazar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>Dona Palenquera</h1>
+
+  <h3>El dulce Sabor de la Costa</h3><p>
+   
+
+	<h2>Precios</h2> <br>
+
+    <div class="contenedor-tienda">
+        <div class="producto">
+    <p>Palenque - $8000</p>
+    <button onclick="agregarAlCarrito('Palenque', 8000)">Agregar</button>
+    <span id="contador-Palenque">
+</div>
+
+
+        <div class="producto">
+            <p>Corralito de piedra - $10000</p>
+            <button onclick="agregarAlCarrito('Corralito de piedra', 10000)">Agregar</button>
+	    <span id="contador-Corralito de piedra">
+            <span class="confirmacion"></span>
+        </div>
+
+        <div class="producto">
+            <p>La Murallada - $13000</p>
+            <button onclick="agregarAlCarrito('La Murallada', 13000)">Agregar</button>
+	    <span id="contador-La Murallada">     
+<span class="confirmacion"></span>
+        </div>
+
+<div class="producto">
+  <p>Doña Palenquera (Rellena de Cocada) - $2000</p>
+  <button onclick="agregarAlCarrito('Doña Palenquera', 2000)">Agregar</button>
+  <span id="contador-Doña Palenquera">
+  <span class="confirmacion"></span>
+</div>
+
+<div class="producto">
+  <p>Doña Rinconera (Rellena de Dulce de Platano) - $3000</p>
+  <button onclick="agregarAlCarrito('Doña Rinconera', 3000)">Agregar</button>
+  <span id="contador-Doña Rinconera">
+  <span class="confirmacion"></span>
+</div>
+
+<div class="producto">
+  <p>Don Yucon (Enyucado y glaseado de suero costeño) - $2000</p>
+  <button onclick="agregarAlCarrito('Don Yucon', 2000)">Agregar</button>
+  <span id="contador-Don Yucon">
+  <span class="confirmacion"></span>
+</div>
+
+<div class="producto">
+  <p>Don Guandul (Relleno de dulce de Guandul) - $2500</p>
+  <button onclick="agregarAlCarrito('Don Guandul', 2500)">Agregar</button>
+  <span id="contador-Don Guandul">
+  <span class="confirmacion"></span>
+</div>
+
+
+<div class="producto">
+  <p>Doña Mangonera (Relleno de Mermelada de Mango) - $2000</p>
+  <button onclick="agregarAlCarrito('Doña Mangonera', 2000)">Agregar</button>
+  <span id="contador-Don Guandul">
+  <span class="confirmacion"></span>
+</div>
+
+        </div>
+    </div>
+
+    <br>
+    <button onclick="window.location.href='carritotiendabazar.html'">Ir al Carrito</button>
+
+<script>
+    function agregarAlCarrito(nombre, precio) {
+        let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        let productoExistente = carrito.find(item => item.nombre === nombre);
+
+        if (productoExistente) {
+            productoExistente.cantidad += 1;
+        } else {
+            carrito.push({ nombre, precio, cantidad: 1 });
+        }
+
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+
+  // 🛠️ Actualizar el contador en la tienda
+    let contadorElemento = document.getElementById(`contador-${nombre}`);
+    if (contadorElemento) {
+        let cantidadActualizada = carrito.find(item => item.nombre === nombre).cantidad;
+        contadorElemento.innerText = cantidadActualizada;
+        }
+
+        // ✅ Mostrar mensaje de agregado
+        let mensaje = event.target.nextElementSibling;
+        mensaje.innerText = "✓ Agregado";
+        mensaje.style.color = "green";
+
+        setTimeout(() => {
+            mensaje.innerText = "";
+        }, 1500);
+    }
+</script>
+
+
+</body>
+</html>

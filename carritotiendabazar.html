@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="carrito.css">
+</head>
+<body>
+    <div id="carrito-container">
+        <div id="carrito">
+            <h2>Carrito de Compras</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio Unitario</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="detalle-carrito"></tbody>
+            </table>
+            <h3>Total: <span id="total-carrito"></span></h3>
+            <button onclick="vaciarCarrito()">Vaciar Carrito</button>
+            <button onclick="window.location.href='factura.html'">Generar Comprobante</button>
+            <button onclick="window.location.href='index.html'">Volver a la tienda</button>
+
+        </div>
+    </div>
+
+    <script>
+        function cargarCarrito() {
+            let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+            let detalleCarrito = document.getElementById("detalle-carrito");
+            let totalCarrito = 0;
+
+            detalleCarrito.innerHTML = "";
+            carrito.forEach(item => {
+                let totalProducto = item.precio * item.cantidad;
+                totalCarrito += totalProducto;
+                detalleCarrito.innerHTML += `
+                    <tr>
+                        <td>${item.nombre}</td>
+                        <td>$${Math.round(item.precio)}</td>
+                        <td>${item.cantidad}</td>
+                        <td>$${Math.round(totalProducto)}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById("total-carrito").innerText = `$${Math.round(totalCarrito)}`;
+        }
+
+        function vaciarCarrito() {
+            localStorage.removeItem("carrito");
+            cargarCarrito();
+        }
+
+        window.onload = cargarCarrito;
+    </script>
+</body>
+</html>

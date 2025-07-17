@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura</title>
+    <link rel="stylesheet" href="factura.css">
+</head>
+<body>
+    <div id="factura-container">
+        <div id="factura">
+            <h2>COMPROBANTE</h2>
+            <p><strong>Fecha:</strong> <span id="fecha"></span></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio Unitario</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="detalle-factura"></tbody>
+            </table>
+            <h3>Total a pagar: <span id="total-pagar"></span></h3>
+          
+            <p id="mensaje-advertencia">
+    <strong>⚠ AVISO IMPORTANTE:</strong><br>
+     <strong>Para reclamar su pedido, debe presentar este documento junto con el código QR de confirmación de pago de Nequi, o directamente en el Pago de Nequi incluir los elementos comprados en la parte de Mensaje.</strong>
+</p>
+
+
+
+            <p><button onclick="imprimirFactura()" id="btn-imprimir">Imprimir Comprobante</button></p>
+            <button onclick="window.location.href='carritotiendabazar.html'">Volver al carrito</button>
+        </div>
+    </div>
+
+    <script>
+        function cargarFactura() {
+            let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+            let detalleFactura = document.getElementById("detalle-factura");
+            let totalPagar = 0;
+
+            detalleFactura.innerHTML = "";
+            carrito.forEach(item => {
+                let totalProducto = item.precio * item.cantidad;
+                totalPagar += totalProducto;
+                detalleFactura.innerHTML += `
+                    <tr>
+                        <td>${item.nombre}</td>
+                        <td>$${Math.round(item.precio)}</td>
+                        <td>${item.cantidad}</td>
+                        <td>$${Math.round(totalProducto)}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById("total-pagar").innerText = `$${Math.round(totalPagar)}`;
+            document.getElementById("fecha").innerText = new Date().toLocaleString();
+        }
+
+        function imprimirFactura() {
+            window.print();
+        }
+
+        window.onload = cargarFactura;
+    </script>
+</body>
+</html>

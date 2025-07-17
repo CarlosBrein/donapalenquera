@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #fff;
+    color: #000;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: red;
+    margin-top: 20px;
+}
+
+
+h2 {
+    color: Black;
+    margin-top: 20px;
+}
+
+
+/* Contenedor principal de la tienda */
+.contenedor-tienda {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Cada producto en la tienda */
+.producto {
+    background-color: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Estilo de los botones */
+button {
+    padding: 10px 15px;
+    margin: 10px;
+    background-color: #0011ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: black;
+}
+
+/* Confirmación al agregar productos */
+.confirmacion {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
